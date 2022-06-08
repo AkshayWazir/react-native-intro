@@ -14,6 +14,7 @@ const App = () => {
   return (
     <View style={styles.back}>
       <Dashboard />
+      <Dashboard type={1} />
     </View>
   );
 };
