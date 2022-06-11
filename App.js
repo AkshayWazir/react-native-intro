@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, useWindowDimensions} from 'react-native';
-import {Dashboard} from './src/screens';
+import {NewDashboard} from './src/screens';
 
 const App = () => {
   const {height, width} = useWindowDimensions();
@@ -13,8 +13,7 @@ const App = () => {
   });
   return (
     <View style={styles.back}>
-      <Dashboard />
-      <Dashboard type={1} />
+      <NewDashboard />
     </View>
   );
 };
