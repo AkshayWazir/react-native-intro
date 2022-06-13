@@ -1,66 +1,25 @@
-import React, {useState} from 'react';
-import {
-  View,
-  FlatList,
-  StyleSheet,
-  Text,
-  useWindowDimensions,
-} from 'react-native';
+import React from 'react';
+import {View, Image, Text, StyleSheet, useWindowDimensions} from 'react-native';
+import Icon from '../assets/pattern.png';
+import {ListItem, ListLoader} from '../components';
 
-const DashboardComp = () => {
-  const {height, width, fontScale} = useWindowDimensions();
-  const styles = StyleSheet.create({});
-  const [loadingState, setLoadingState] = useState(false);
-  const [array, setArray] = useState([
-    {id: 0, name: 'Akshay'},
-    {id: 1, name: 'Amit'},
-    {id: 2, name: 'Sebastian'},
-  ]);
-
-  function refreshFunc(params) {
-    setLoadingState(true);
-    setTimeout(() => {
-      setArray([...array, {id: array.length, name: 'Sebastian'}]);
-      setLoadingState(false);
-    }, 3000);
-  }
-
+const Dashboard = props => {
+  const {height, width} = useWindowDimensions();
+  const styles = StyleSheet.create({
+    container: {height: height, width: width, backgroundColor: '#ffffff'},
+  });
+  const content = [
+    {id: 0, icon: Icon, title: 'Lead', name: 'Akshay'},
+    {id: 1, icon: Icon, title: 'Analyst', name: 'Aayush'},
+    {id: 2, icon: Icon, title: 'Senior', name: 'Shubham'},
+    {id: 3, icon: Icon, title: 'Manager', name: 'Aditya'},
+    {id: 4, icon: Icon, title: 'VP', name: 'Lakshay'},
+  ];
   return (
-    <View style={styles.parent}>
-      <FlatList
-        onRefresh={refreshFunc}
-        refreshing={loadingState}
-        data={array}
-        renderItem={({item}) => <RenderItem name={item.name} />}
-        keyExtractor={item => item.id}
-      />
+    <View style={styles.container}>
+      <ListLoader data={content} Item={ListItem} />
     </View>
   );
 };
 
-function RenderItem({id, name}) {
-  const {height, width, fontScale} = useWindowDimensions();
-  const styles = StyleSheet.create({
-    child: {
-      height: height * 0.1,
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      margin: height * 0.01,
-      backgroundColor: '#00ff0022',
-    },
-    text: {color: '#000000'},
-  });
-  return (
-    <View style={styles.child}>
-      <Text style={styles.text}>{name}</Text>
-    </View>
-  );
-}
-
-export default DashboardComp;
-
-// {
-//   array.map(item => <Item name={item.title} />);
-// }
+export default Dashboard;
