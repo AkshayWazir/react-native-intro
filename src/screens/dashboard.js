@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Image, Text, StyleSheet, useWindowDimensions} from 'react-native';
 import Icon from '../assets/pattern.png';
 import {ListItem, ListLoader} from '../components';
@@ -7,6 +7,8 @@ import {colors} from '../creds/config';
 const Dashboard = props => {
   const [queue, setQueue] = useState([]);
   const {height, width} = useWindowDimensions();
+  const [pos, setPos] = useState(0);
+
   const styles = StyleSheet.create({
     container: {height: height, width: width, backgroundColor: '#ffffff'},
     firstSection: {height: '80%', backgroundColor: colors.default},
@@ -28,14 +30,30 @@ const Dashboard = props => {
     {id: 12, icon: Icon, title: 'Manager', name: 'Aditya'},
     {id: 13, icon: Icon, title: 'VP', name: 'Lakshay'},
   ];
+
   return (
     <View style={styles.container}>
-      <ListLoader data={content} Item={ListItem} styles={styles.firstSection} />
+      <ListLoader
+        data={content.map(item => {
+          return {
+            ...item,
+            addEnable: true,
+            addFunc: () => {
+              console.log('Incrementing Queue');
+              setQueue([...queue, item]);
+              console.log('Incremented Queue ', queue);
+            },
+          };
+        })}
+        Item={ListItem}
+        styles={styles.firstSection}
+      />
       <ListLoader
         data={queue}
         Item={ListItem}
         styles={styles.secondSection}
         horizontal={true}
+        scrollTo={pos}
       />
     </View>
   );

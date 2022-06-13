@@ -12,10 +12,13 @@ const ListLoader = props => {
   const finalStyles = StyleSheet.compose(defStyles.container, styles);
   const listRef = useRef(null);
 
-  const renderItem = items => <Item {...items} />;
+  const renderItem = ({item}) => <Item {...item} />;
 
   useEffect(() => {
-    if (scrollTo) listRef.current.scrollToIndex(scrollTo);
+    if (scrollTo && listRef) {
+      console.log('starting to scroll');
+      listRef.current.scrollToIndex(scrollTo);
+    }
   }, [scrollTo]);
 
   return (
