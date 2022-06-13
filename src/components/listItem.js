@@ -11,7 +11,7 @@ const ItemComp = props => {
       width: width * 0.8,
     },
     text: {
-      color: '#ff0000',
+      color: colors.secondary,
     },
   });
   return (

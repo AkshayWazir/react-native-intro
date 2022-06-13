@@ -1,9 +1,17 @@
 import React, {useRef, useEffect} from 'react';
-import {FlatList} from 'react-native';
+import {FlatList, StyleSheet} from 'react-native';
 
 const ListLoader = props => {
-  const {data, Item, horizontal, scrollTo} = props;
+  const {data, Item, horizontal, scrollTo, styles = {}} = props;
+  const defStyles = StyleSheet.create({
+    container: {
+      backgroundColor: '#ff00ff',
+      flexGrow: 0,
+    },
+  });
+  const finalStyles = StyleSheet.compose(defStyles.container, styles);
   const listRef = useRef(null);
+
   const renderItem = items => <Item {...items} />;
 
   useEffect(() => {
@@ -12,6 +20,7 @@ const ListLoader = props => {
 
   return (
     <FlatList
+      style={finalStyles}
       data={data}
       horizontal={horizontal || false}
       renderItem={renderItem}
