@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import {View, Image, Text, StyleSheet, useWindowDimensions} from 'react-native';
 import Icon from '../assets/pattern.png';
-import {ListItem, ListLoader} from '../components';
+import {ListItem, ListLoader, GenModal} from '../components';
 import {colors} from '../creds/config';
 
 const Dashboard = props => {
   const [queue, setQueue] = useState([]);
   const {height, width} = useWindowDimensions();
   const [pos, setPos] = useState(0);
+  const [showMod, setShowMod] = useState(false);
 
   const styles = StyleSheet.create({
     container: {height: height, width: width, backgroundColor: '#ffffff'},
@@ -39,9 +40,7 @@ const Dashboard = props => {
             ...item,
             addEnable: true,
             addFunc: () => {
-              console.log('Incrementing Queue');
-              setQueue([...queue, item]);
-              console.log('Incremented Queue ', queue);
+              setShowMod(true);
             },
           };
         })}
@@ -55,6 +54,7 @@ const Dashboard = props => {
         horizontal={true}
         scrollTo={pos}
       />
+      <GenModal visible={showMod} negative={() => setShowMod(false)} />
     </View>
   );
 };
